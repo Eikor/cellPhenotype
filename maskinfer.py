@@ -24,15 +24,15 @@ def maskinfer(img, channels, nuclei=False):
     cyto_model = models.Cellpose(gpu=True)
     nuclei_model = models.Cellpose(gpu=True, model_type='nuclei')
     
-    ##### merged image #####
+    ##### merged image (combine cyto channel and nuclei channel) #####
     if nuclei:
         masks, flows, _, _  = nuclei_model.eval(img, channels=channels, diameter=None)
     else:
         masks, flows, _, _  = cyto_model.eval(img, channels=channels, diameter=None)
     
     
-    fig = plt.figure(figsize=(8,3), dpi=600)
-    plot.show_segmentation(fig, img, masks, flows[0], channels=[[2, 1]], file_name='merged_estimatediam')
+    # fig = plt.figure(figsize=(8,3), dpi=600)
+    # plot.show_segmentation(fig, img, masks, flows[0], channels=[[2, 1]], file_name='merged_estimatediam')
 
     return masks, flows
     ##### merged image(gray) #####

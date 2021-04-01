@@ -70,12 +70,16 @@ def buildandtrainnet():
 
     for epoch in range(1, epochs + 1):
         for (data1, data2) in zip(dataset1, dataset2):
+            
+            ### mixup augmentation
             alpha = nd.array(np.random.beta(0.5, 0.5, (batch_size, 1, 1, 1)))
             data1, label1 = data1
             data2, label2 = data2
             data = alpha * data1 + (1-alpha) * data2
             alpha = alpha.reshape(batch_size, 1)
             label = alpha * nd.eye(8)[label1] + (1-alpha) * nd.eye(8)[label2]
+            ###############
+            
             # get the images and labels
             data = gluon.utils.split_and_load(data, ctx_list=[ctx], batch_axis=0)
             label = gluon.utils.split_and_load(label, ctx_list=[ctx], batch_axis=0)
