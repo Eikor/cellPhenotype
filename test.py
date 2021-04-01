@@ -85,10 +85,10 @@ if __name__ == '__main__':
     from clsmodel import loadmodel
     from plot import plotmask
     
-    url = '/home/siat/projects/dataset/cellcog/H2b_aTub_MD20x_exp911/0040'  
+    url = './H2b_aTub_MD20x_exp911/0040'  
     imgs, imgnames = load_data(url) # load entire datasets
 
-    index = 176 # image index
+    index = 0 # image index
     nuclei = imgs[index][:, :, 0] 
     h, w = nuclei.shape[0:2]
 
@@ -130,7 +130,13 @@ if __name__ == '__main__':
 
 
     plotmask(img, masks, pred, anchor, f'out/{index}.png')
+    pred = pred.asnumpy()
+    count = []
+    for l in range(len(labels)):
+        count.append(np.count_nonzero(pred == l))
 
+    plt.bar(range(len(labels)), count, tick_label = labels)
+    plt.savefig(f'out/static_{index}.png')
     
 
 

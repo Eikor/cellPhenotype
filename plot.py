@@ -10,6 +10,7 @@ from cellpose import utils
 import numpy as np
 import matplotlib.pyplot as plt
 from skimage import io
+import cv2 
 
 def plotoutline(img, masks, pred, anchor):
     outlines = utils.masks_to_outlines(masks)
@@ -71,6 +72,7 @@ def plotmask(img, masks, pred, anchor, saveurl):
     weights = nuclei / 255
     canvas = canvas * weights # (cell/np.max(cell)) # multiply nuclei
     io.imsave(saveurl, canvas)
+    
     
 def seqplot(img, mask, anchor):
     targets = [[anchor[j][3], anchor[j][-1]] for j in range(len(anchor))]

@@ -52,7 +52,7 @@ def buildandtrainnet():
         data = mx.image.imresize(data, 64, 64)
         return data.astype(np.float32).transpose((2,0,1))/255.0, np.float32(label)
     
-    datasetpath = '/home/siat/projects/dataset/cellcog/H2b_aTub_MD20x_exp911/classifier/mc64'
+    datasetpath = './H2b_aTub_MD20x_exp911/classifier/mc64'
     dataset1 = gluon.data.DataLoader(gluon.data.vision.ImageFolderDataset(datasetpath, transform=transform), 
                                      batch_size=batch_size, shuffle=True, num_workers=8, last_batch='discard')
     dataset2 = gluon.data.DataLoader(gluon.data.vision.ImageFolderDataset(datasetpath, transform=transform), 
